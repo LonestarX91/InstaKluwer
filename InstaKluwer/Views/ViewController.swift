@@ -39,7 +39,9 @@ class ViewController: UIViewController {
                 if let encoded = try? JSONEncoder().encode(albums) {
                     UserDefaults.standard.set(encoded, forKey: "albums")
                     self.albumsArray = albums
-                    self.tableView.reloadData()
+                    DispatchQueue.main.async { [unowned self] in
+                        self.tableView.reloadData()
+                    }
                 }
             } else {
                 self.getStoredItemsDEBUG()
