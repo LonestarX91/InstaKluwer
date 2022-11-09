@@ -57,6 +57,7 @@ class ViewController: UIViewController {
        self.photoDetailScrollViewTopConstraint.constant = lastTappedCellHeight
        UIView.animate(withDuration: 0.5) {
            self.photoDetailView.effect = nil
+           self.photoDetailScrollView.zoomScale = 1
            self.view.layoutIfNeeded()
        } completion: { done in
            self.photoDetailView.alpha = 0
@@ -77,6 +78,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
         cell.photosCollectionView.delegate = self
         cell.photosCollectionView.dataSource = cell
+        cell.photosCollectionView.decelerationRate = .fast
         cell.photosArray = albumsArray[indexPath.row].children!.count > 0 ? albumsArray[indexPath.row].children! : [albumsArray[indexPath.row]]
         cell.photosCollectionView.reloadData()
         cell.albumDescription.text = albumsArray[indexPath.row].caption
@@ -85,7 +87,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ViewController:  UICollectionViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate {
+extension ViewController:  UICollectionViewDelegate, UIGestureRecognizerDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoCell
         let realCenter = collectionView.convert(cell.imageView!.frame, to: collectionView.superview?.superview?.superview?.superview)

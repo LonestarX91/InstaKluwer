@@ -30,7 +30,7 @@ class AlbumCell: UITableViewCell {
     }
 }
 
-extension AlbumCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension AlbumCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photosArray.count
@@ -42,3 +42,4 @@ extension AlbumCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         return cell
     }
 }
+
